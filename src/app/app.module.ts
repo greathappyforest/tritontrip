@@ -18,6 +18,8 @@ import {
   MdTabsModule,
 } from '@angular/material';
 
+
+
 import 'hammerjs';
 import 'rxjs/add/operator/distinctUntilChanged'
 import 'rxjs/add/operator/startWith';
@@ -57,7 +59,7 @@ import { SearchOutputDetailComponent } from './search-output-detail/search-outpu
     AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

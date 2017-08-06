@@ -17,9 +17,9 @@
                     <button mdSuffix [mdDatepickerToggle]="picker1"></button>
                 </md-input-container>
             </div>
-
+            {{from1}} {{to1}} {{date1}}
             <div class="form-group" align="left">
-                <md-datepicker #picker1></md-datepicker>
+                <md-datepicker dateFormat="YYYY-MM-DD" #picker1></md-datepicker>
                 <button md-raised-button color="primary" type="submit" (click)="search()"><md-icon>search</md-icon></button>
             </div>
         </form>
