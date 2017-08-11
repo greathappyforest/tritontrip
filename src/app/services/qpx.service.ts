@@ -11,7 +11,8 @@ export class QpxService {
     }
     searchReq:any
     public getTrip(searchReq) {
-        const API_KEY = 'AIzaSyDUIHEZpQbC1JTFyTxiYXN6-dd1aVEHJ9E';
+        // const API_KEY = 'AIzaSyC9BoC0yzmeFJaBdJyqBevboUczcLtJPFo';
+        const API_KEY = 'AIzaSyCgILgw9s6w_9zPNTTyXN1w6x_9zKsrFEU';
         const URL = 'https://www.googleapis.com/qpxExpress/v1/trips/search';
         let body = JSON.stringify(searchReq);
         let headers = new Headers();
@@ -27,5 +28,8 @@ export class QpxService {
             })
             .map((res:Response) => res.json());
     }
+
+
+    
 }
 

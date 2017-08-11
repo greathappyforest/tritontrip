@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormControl, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Http, Response, Headers, URLSearchParams } from '@angular/http';
 import { QpxService } from "../services/qpx.service";
+import { ShareDataService } from "../services/share-data.service";
 import * as moment from 'moment';
 @Component({
   selector: 'app-search-input',
@@ -12,8 +13,6 @@ import * as moment from 'moment';
 
 
 export class SearchInputComponent implements OnInit {
-
-
     from1:any
     to1:any
     date1:any
@@ -24,6 +23,7 @@ export class SearchInputComponent implements OnInit {
     searchRes:any
 
   ngOnInit() {
+     this.shareData.getSearchRes().subscribe(res => this.searchRes = res)
   }
   myFilter1 = (d: Date): boolean => {
     const date = d.getTime()
@@ -70,7 +70,8 @@ export class SearchInputComponent implements OnInit {
   }
   constructor(
     private http: Http,
-    private _qpx:QpxService
+    private _qpx:QpxService,
+    private shareData: ShareDataService
     ) {
     this.tdAirports = this.airports;
     this.airportCtrl = new FormControl({ code: '', name: '' });
@@ -110,15 +111,12 @@ export class SearchInputComponent implements OnInit {
         {
           "origin": this.from1.code,
           "destination": this.to1.code,
-          "date": myMoment
+          "date": myMoment,
+          "maxStops": 1
         }
       ],
       "passengers": {
-      "adultCount": 1,
-      "infantInLapCount": 0,
-      "infantInSeatCount": 0,
-      "childCount": 0,
-      "seniorCount": 0
+      "adultCount": 1
     },
       "refundable": true,
       "solutions": 10
@@ -131,26 +129,24 @@ export class SearchInputComponent implements OnInit {
         {
           "origin": this.from2,
           "destination": this.to2,
-          "date": this.initDate
-        }
-      ],
-      "refundable": true,
-      "solutions": 10
-    }
-  }
- let body3 = {
-    "request": {
-      "slice": [
+          "date": this.initDate,
+          "maxStops": 0
+        },
         {
           "origin": this.to2,
           "destination": this.from2,
-          "date": this.retDate
+          "date": this.retDate,
+          "maxStops": 0
         }
       ],
+      "passengers": {
+      "adultCount": 1
+    },
       "refundable": true,
       "solutions": 10
     }
   }
+ 
       this.errorEmitter.emit(null);
       console.log('11')
       console.log(this.from1.code)
@@ -159,12 +155,14 @@ export class SearchInputComponent implements OnInit {
               (data) => {
                   this.searchRes=data
                   this.errorEmitter.emit(null);
-                  console.log(this.searchRes)
+                  this.shareData.postSearchRes( data )
               },
               (error) => {
                   this.errorEmitter.emit(error);
               }
           );
     }
+
+    //post searchres into sharedata service.
 
 }

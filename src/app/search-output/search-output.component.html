@@ -1,3 +1,123 @@
-<p>
-  search-output works!
-</p>
+<div *ngIf="searchRes" style="font-size:20px">
+    <hr>
+    <collapsible-table [type]="'accordion'">
+        <thead>
+            <collapsible-table-row align="center">
+                <th>Price</th>
+                <th>Duration</th>
+                <th>Departure/Arrival</th>
+                <th>Carrier</th>
+                <th>Stop(s)</th>
+            </collapsible-table-row>
+        </thead>
+
+        <tbody *ngFor="let tripOption of searchRes.trips.tripOption;  let i = index">
+            <collapsible-table-row [detail]="detail1">
+                <td>
+                    <div *ngFor="let pricing of tripOption.pricing;  let i = index">
+                        {{pricing.saleTotal}}
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let pricing of tripOption.pricing;  let i = index">
+                        <div *ngFor="let slice of tripOption.slice;  let i = index">
+                            <p>{{ getHour(slice.duration)}} h {{slice.duration % 60}} m</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let pricing of tripOption.pricing;  let i = index">
+                        <div *ngFor="let slice of tripOption.slice;  let i = index">
+                            <div *ngFor="let segment of slice.segment;  let stop = index">
+                                <div *ngFor="let leg of segment.leg;  let i = index">
+                                    <p>Dep: {{leg.departureTime}}</p>
+                                    <p>Arr: {{leg.arrivalTime}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+
+                <td>
+                    <div *ngFor="let pricing of tripOption.pricing;  let i = index">
+                        <div *ngFor="let slice of tripOption.slice;  let i = index">
+                            <div *ngFor="let segment of slice.segment;  let stop = index">
+                                <div *ngFor="let carrier of searchRes.trips.data.carrier;  let i = index">
+                                    <div *ngIf="segment.flight.carrier===carrier.code">
+                                        <p> {{segment.flight.carrier}}</p>
+                                        <p> {{carrier.name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let pricing of tripOption.pricing;  let i = index">
+                        <div *ngFor="let slice of tripOption.slice;  let i = index">
+                            <p>{{slice.segment.length-1}}</p>
+                        </div>
+                    </div>
+                </td>
+            </collapsible-table-row>
+
+            <collapsible-table-row-detail #detail1>
+                <table>
+                    <tr>
+
+                        <div *ngFor="let pricing of tripOption.pricing;  let i = index">
+                            <p>pricing:{{i}} </p>
+                            <p>pricing.baseFareTotal: {{pricing.baseFareTotal}}</p>
+                            <p>pricing.saleTaxTotal: {{pricing.saleTaxTotal}}</p>
+                            <p>pricing.saleTotal: {{pricing.saleTotal}}</p>
+                        </div>
+                        <div *ngFor="let slice of tripOption.slice;  let i = index">
+                            <p>Solution:{{i}}================================================ </p>
+                            <p>
+                                Total duration: {{slice.duration}}
+                            </p>
+                            <div *ngFor="let segment of slice.segment;  let i = index">
+                                <p>Segment:{{i}} ---------------------------------- </p>
+                                <p>Duration: {{segment.duration}} Minutes</p>
+                                <div *ngFor="let carrier of searchRes.trips.data.carrier;  let i = index">
+                                    <div *ngIf="segment.flight.carrier===carrier.code">
+                                        <p>Carrier: {{carrier.name}} - {{segment.flight.carrier}}</p>
+                                    </div>
+                                </div>
+                                <p>Flight Number: {{segment.flight.carrier}}{{segment.flight.number}}</p>
+                                <div *ngFor="let leg of segment.leg;  let i = index">
+                                    <div *ngFor="let city of searchRes.trips.data.city">
+                                        <div *ngIf="city.code===leg.origin">
+                                            <p>Origin: {{city.name}} - {{leg.origin}}</p>
+                                        </div>
+                                    </div>
+                                    <div *ngFor="let city of searchRes.trips.data.city">
+                                        <div *ngIf="city.code===leg.destination">
+                                            <p>Destination: {{city.name}} - {{leg.destination}}</p>
+                                        </div>
+                                    </div>
+                                    <p>OriginTerminal: {{leg.originTerminal}}</p>
+                                    <p>DestinationTerminal: {{leg.destinationTerminal}}</p>
+                                    <div *ngFor="let aircraft of searchRes.trips.data.aircraft;  let i = index">
+                                        <div *ngIf="aircraft.code===leg.aircraft">
+                                            <p>Aircraft: {{aircraft.name}}</p>
+                                        </div>
+                                    </div>
+                                    <p>DepartureTime: {{leg.departureTime}}</p>
+                                    <p>ArrivalTime: {{leg.arrivalTime}}</p>
+                                    <p>Segment flight duration: {{leg.duration}} Minutes</p>
+                                    <p>Segment mileage: {{leg.mileage}} miles</p>
+                                    <p>Meal: {{leg.meal}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
+                </table>
+            </collapsible-table-row-detail>
+
+        </tbody>
+
+    </collapsible-table>
+</div>

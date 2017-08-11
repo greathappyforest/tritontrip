@@ -16,10 +16,11 @@ import {
   MdIconModule,
   MdInputModule,
   MdTabsModule,
+  MdTableModule,
+  MdSortModule
 } from '@angular/material';
-
-
-
+import { CdkTableModule } from '@angular/cdk';
+import { CollapsibleModule } from 'angular2-collapsible'; // <-- import the module
 import 'hammerjs';
 import 'rxjs/add/operator/distinctUntilChanged'
 import 'rxjs/add/operator/startWith';
@@ -30,6 +31,9 @@ import { AppComponent } from './app.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SearchOutputComponent } from './search-output/search-output.component';
 import { SearchOutputDetailComponent } from './search-output-detail/search-output-detail.component';
+
+
+
 
 
 
@@ -55,11 +59,15 @@ import { SearchOutputDetailComponent } from './search-output-detail/search-outpu
     MdIconModule,
     MdInputModule,
     MdTabsModule,
+    MdTableModule,
     FormsModule,
     AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    CdkTableModule,
+    MdSortModule,
+    CollapsibleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
