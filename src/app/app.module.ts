@@ -17,7 +17,8 @@ import {
   MdInputModule,
   MdTabsModule,
   MdTableModule,
-  MdSortModule
+  MdSortModule,
+  MdSelectModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk';
 import { CollapsibleModule } from 'angular2-collapsible'; // <-- import the module
@@ -31,6 +32,8 @@ import { AppComponent } from './app.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SearchOutputComponent } from './search-output/search-output.component';
 import { SearchOutputDetailComponent } from './search-output-detail/search-output-detail.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -44,7 +47,9 @@ import { SearchOutputDetailComponent } from './search-output-detail/search-outpu
     AppComponent,
     SearchInputComponent,
     SearchOutputComponent,
-    SearchOutputDetailComponent
+    SearchOutputDetailComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import { SearchOutputDetailComponent } from './search-output-detail/search-outpu
     MdTabsModule,
     MdTableModule,
     FormsModule,
+    MdSelectModule,
     AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,

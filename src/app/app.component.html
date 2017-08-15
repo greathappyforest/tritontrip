@@ -1,12 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="container">
+<div class="container" #scrollMe style="height: 50%;">
+    <app-header></app-header>
     <md-card id="search-input1">
         <app-search-input></app-search-input>
     </md-card>
-    <md-card>
-        <app-search-output></app-search-output>
-    </md-card>
 
-
-
+    <app-search-output></app-search-output>
+    <hr style="margin-bottom: 10vh; opacity: 0;">
+    <app-footer></app-footer>
 </div>
